@@ -59,6 +59,14 @@ BASE_IGNORED = [
     'lip',
 ]
 
+FINGER_BONES = [
+    "Thumb{}_{}",
+    "Index{}_{}",
+    "Middle{}_{}",
+    "Ring{}_{}",
+    "Little{}_{}",
+]
+
 
 def objects_by_patterns(objects, patterns):
     """
@@ -77,6 +85,37 @@ def objects_by_patterns(objects, patterns):
 def objects_by_pattern(objects, pattern):
     return objects_by_patterns(objects, [pattern])
 
+def create_edit_bone_mapping(base_bones, vroid_rig):
+    conversions = []
+    for base_bone in base_bones:
+        # Extract bone direction.
+        direction = None
+        if base_bone.name.endswith('L'):
+            direction = 'L'
+        if base_bone.name.endswith('R'):
+            direction = 'R'
+
+        # Find matching VRoid bone pattern.
+        vroid_pattern = None
+        for base_pattern, pattern in BASE_VROID_BONE_MAP:
+            if objects_by_pattern([base_bone], base_pattern):
+                assert not vroid_pattern, f"ambiguous pattern: `{base_pattern}`"
+                vroid_pattern = pattern
+        assert vroid_pattern, f"no VRoid pattern found for `{base_bone}`"
+
+        # Find matching VRoid rig bones.
+        vroid_matches = objects_by_pattern(vroid_rig.data.edit_bones, vroid_pattern)
+        if direction:
+            vroid_matches = objects_by_pattern(vroid_matches, f'_{direction}')
+
+        # Verify single bone.
+        assert vroid_matches, f"no VRoid bones found for `{vroid_pattern}`"
+        assert len(vroid_matches) == 1, f"too many VRoid bones found for `{vroid_pattern}`"
+        [vroid_bone] = vroid_matches
+
+        # Add bone conversion.
+        conversions.append((base_bone, vroid_bone))
+    return conversions
 
 def create_bone_mapping(base_bones, vroid_rig):
     conversions = []

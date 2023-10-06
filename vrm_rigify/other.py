@@ -13,6 +13,12 @@ class ModeContext:
         bpy.ops.object.mode_set(mode=self.old_mode)
 
 
-def editing(node):
-    node.select_set(True)
+def editing(*nodes):
+    for node in nodes:
+        node.select_set(True)
     return ModeContext('EDIT')
+    
+def posing(*nodes):
+    for node in nodes:
+        node.select_set(True)
+    return ModeContext('POSE')

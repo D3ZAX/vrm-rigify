@@ -46,7 +46,7 @@ class GenerateVRMRig(bpy.types.Operator):
         bpy.ops.pose.rigify_generate()
         gen_rig = bpy.context.view_layer.objects.active
         gen_rig.matrix_world = vroid_rig.matrix_world
-        gen.setup_bones(vroid_rig, gen_rig)
+        gen.setup_bones(vroid_rig, meta_rig, gen_rig)
         humanize.humanize(gen_rig)
 
         # Organize view.
@@ -77,7 +77,7 @@ class AmendVRMGeneratedRig(bpy.types.Operator):
         selected = list(context.selected_objects)
         [gen_rig] = base.objects_by_pattern(selected, '.rig')
         [vroid_rig] = [node for node in selected if node != gen_rig]
-        gen.setup_bones(vroid_rig, gen_rig)
+        gen.setup_bones(vroid_rig, meta_rig, gen_rig)
         return {'FINISHED'}
 
 
