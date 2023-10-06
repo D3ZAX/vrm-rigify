@@ -9,6 +9,11 @@ Generate Blender Rigify armatures for VRM models.
 This addon has been tested with [VRoid's sample avatars](https://vroid.pixiv.help/hc/en-us/articles/4402394424089) and
 only supports the VRM 0.x format.
 
+## Warning
+This branch add some new feather for VRoid model game develop overflow, it will make some change to your origin
+VRM model rig structure to fit Rigify, some param may not fit for other VRM models, please make a backup before you decide
+to use this branch.
+
 ## Installation
 
 1. Download `vrm_rigify.zip` from the [releases page](https://github.com/Nanoskript/vrm-rigify/releases/tag/latest).
