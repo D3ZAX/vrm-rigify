@@ -16,7 +16,7 @@ to use this branch.
 
 ## Installation
 
-1. Download `vrm_rigify.zip` from the [releases page](https://github.com/Nanoskript/vrm-rigify/releases/tag/latest).
+1. Download `vrm_rigify.zip` from the [releases page](https://github.com/D3ZAX/vrm-rigify/releases/tag/Latest).
 2. Install [VRM Add-on for Blender](https://vrm-addon-for-blender.info/en/) if it is not already installed.
 3. Open Blender and go to `Edit` > `Preferences` > `Add-ons`:
 
